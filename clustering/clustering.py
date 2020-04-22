@@ -148,7 +148,7 @@ class ArchetypalAnalysis(BaseEstimator, TransformerMixin):
 
 def archetypal_plot(ax,data,dp,epsilon=0.2):
     '''
-    Source: Dr. Luke Bovard, Ambidexter GmbH, DBA Yunar
+    Source: Dr. Luke Bovard
     '''
     ax.scatter(data[0,:],data[1,:],alpha=0.6, linewidths=10)
     ax.scatter(dp[0,:],dp[1,:],c='orange')
