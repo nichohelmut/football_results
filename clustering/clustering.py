@@ -38,6 +38,7 @@ class ArchetypalAnalysis(BaseEstimator, TransformerMixin):
         [e_A] - k x 1
         [e_B] - n x 1
 
+        Source: https://miller-blog.com/archetypal-analysis/
 
         '''
         self.n_archetypes = n_archetypes
@@ -63,6 +64,8 @@ class ArchetypalAnalysis(BaseEstimator, TransformerMixin):
         -------
         self : object
             Returns the instance itself.
+
+        Source: https://miller-blog.com/archetypal-analysis/
         """
         self._fit(X)
         return self
@@ -85,7 +88,10 @@ class ArchetypalAnalysis(BaseEstimator, TransformerMixin):
         self.A_ = A
 
     def _computeA(self, X, Z, tmax):
-        ''' Algorithm 1 of Bauckhage et al. 2015'''
+        ''' 
+        Algorithm 1 of Bauckhage et al. 2015
+        Source: https://miller-blog.com/archetypal-analysis/
+        '''
         m, n = X.shape
         k = self.n_archetypes
 
@@ -103,7 +109,10 @@ class ArchetypalAnalysis(BaseEstimator, TransformerMixin):
         return A
 
     def _computeB(self, X, A, tmax): 
-        ''' Algorithm 2 of Bauckhage et al. 2015'''
+        ''' 
+        Algorithm 2 of Bauckhage et al. 2015
+        Source: https://miller-blog.com/archetypal-analysis/
+        '''
         k, n = A.shape 
         B = np.zeros((n, k))
         B[0, :] = 1.0
@@ -119,16 +128,28 @@ class ArchetypalAnalysis(BaseEstimator, TransformerMixin):
         return B
 
     def archetypes(self):
+        '''
+        Source: https://miller-blog.com/archetypal-analysis/
+        '''
         return self.Z_
 
     def transform(self,X):
+        '''
+        Source: https://miller-blog.com/archetypal-analysis/
+        '''
         return self._computeA(X,self.Z_,self.tmax)
 
 
     def _rss(self, X, A, Z):
+        '''
+        Source: https://miller-blog.com/archetypal-analysis/
+        '''
         return np.linalg.norm(X - Z@A)
 
 def archetypal_plot(ax,data,dp,epsilon=0.2):
+    '''
+    Source: Dr. Luke Bovard, Ambidexter GmbH, DBA Yunar
+    '''
     ax.scatter(data[0,:],data[1,:],alpha=0.6, linewidths=10)
     ax.scatter(dp[0,:],dp[1,:],c='orange')
 
