@@ -1,9 +1,3 @@
-# MLND-Capstone
-
-My capstone project for Udacity's Machine Learning Nanodegree
-
-Topic: Predicting football results using Archetype Analysis and XGBoost
-
 # Dataset
 
 The team- and match related datasets can be found at the premium section of https://footystats.org/download-stats-csv.
