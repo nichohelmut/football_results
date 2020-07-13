@@ -2,9 +2,8 @@ from sklearn.manifold import LocallyLinearEmbedding
 import scipy
 import numpy as np
 
-
 ################################################################################
-#Archetypal Analysis        ####################################################
+# Archetypal Analysis        ####################################################
 ################################################################################
 import numpy as np
 from sklearn.base import BaseEstimator, TransformerMixin
@@ -45,12 +44,11 @@ class ArchetypalAnalysis(BaseEstimator, TransformerMixin):
         self.tmax = tmax
         self.iterations = iterations
 
-
-        N=self.n_archetypes
-        x,y=np.zeros(N),np.zeros(N)    
-        x[1:]=np.cumsum(np.cos(np.arange(0,N-1)*2*np.pi/N))
-        y[1:]=np.cumsum(np.sin(np.arange(0,N-1)*2*np.pi/N))
-        self.map2D=np.vstack((x,y))
+        N = self.n_archetypes
+        x, y = np.zeros(N), np.zeros(N)
+        x[1:] = np.cumsum(np.cos(np.arange(0, N - 1) * 2 * np.pi / N))
+        y[1:] = np.cumsum(np.sin(np.arange(0, N - 1) * 2 * np.pi / N))
+        self.map2D = np.vstack((x, y))
 
     def fit(self, X, y=None):
         """Fit the model with X using Archetypal Analysis
@@ -70,19 +68,18 @@ class ArchetypalAnalysis(BaseEstimator, TransformerMixin):
         self._fit(X)
         return self
 
-
     def _fit(self, X):
         k = self.n_archetypes
-        m, n  = X.shape
+        m, n = X.shape
 
-        B = np.eye(n, k) 
-        Z=X @ B
+        B = np.eye(n, k)
+        Z = X @ B
 
         for i in range(self.iterations):
             A = self._computeA(X, Z, self.tmax)
             B = self._computeB(X, A, self.tmax)
-            Z= X @ B
-            print('RSS = {}'.format(self._rss(X,A,Z)))
+            Z = X @ B
+            print('RSS = {}'.format(self._rss(X, A, Z)))
 
         self.Z_ = Z
         self.A_ = A
@@ -98,33 +95,33 @@ class ArchetypalAnalysis(BaseEstimator, TransformerMixin):
         A = np.zeros((k, n))
         A[0, :] = 1.0
         for t in range(tmax):
-            #brackets are important to get reasonable sizes
-            #[G] ~  k x n
-            G = 2.0 * ( (Z.T @ Z) @ A - Z.T @ X)
-            #Get the argument mins along each column
-            argmins=np.argmin(G,axis=0)
-            e=np.zeros(G.shape)
-            e[argmins,range(n)]=1.0
-            A += 2.0 / (t + 2.0) * (e - A) 
+            # brackets are important to get reasonable sizes
+            # [G] ~  k x n
+            G = 2.0 * ((Z.T @ Z) @ A - Z.T @ X)
+            # Get the argument mins along each column
+            argmins = np.argmin(G, axis=0)
+            e = np.zeros(G.shape)
+            e[argmins, range(n)] = 1.0
+            A += 2.0 / (t + 2.0) * (e - A)
         return A
 
-    def _computeB(self, X, A, tmax): 
+    def _computeB(self, X, A, tmax):
         ''' 
         Algorithm 2 of Bauckhage et al. 2015
         Source: https://miller-blog.com/archetypal-analysis/
         '''
-        k, n = A.shape 
+        k, n = A.shape
         B = np.zeros((n, k))
         B[0, :] = 1.0
         for t in range(tmax):
-            #brackets are important to get reasonable sizes
-            t1= X.T @ (X @ B) @ (A @ A.T)
+            # brackets are important to get reasonable sizes
+            t1 = X.T @ (X @ B) @ (A @ A.T)
             t2 = X.T @ (X @ A.T)
-            G= 2.0*(t1-t2)
-            argmins=np.argmin(G,axis=0)
-            e=np.zeros(G.shape)
-            e[argmins,range(k)]=1.0
-            B += 2.0/(t+2.0)*(e-B) 
+            G = 2.0 * (t1 - t2)
+            argmins = np.argmin(G, axis=0)
+            e = np.zeros(G.shape)
+            e[argmins, range(k)] = 1.0
+            B += 2.0 / (t + 2.0) * (e - B)
         return B
 
     def archetypes(self):
@@ -133,34 +130,34 @@ class ArchetypalAnalysis(BaseEstimator, TransformerMixin):
         '''
         return self.Z_
 
-    def transform(self,X):
+    def transform(self, X):
         '''
         Source: https://miller-blog.com/archetypal-analysis/
         '''
-        return self._computeA(X,self.Z_,self.tmax)
-
+        return self._computeA(X, self.Z_, self.tmax)
 
     def _rss(self, X, A, Z):
         '''
         Source: https://miller-blog.com/archetypal-analysis/
         '''
-        return np.linalg.norm(X - Z@A)
+        return np.linalg.norm(X - Z @ A)
 
-def archetypal_plot(ax,data,dp,epsilon=0.2):
+
+def archetypal_plot(ax, data, dp, epsilon=0.2):
     '''
     Source: Dr. Luke Bovard
     '''
-    ax.scatter(data[0,:],data[1,:],alpha=0.6, linewidths=10)
-    ax.scatter(dp[0,:],dp[1,:],c='orange')
+    ax.scatter(data[0, :], data[1, :], alpha=0.6, linewidths=10)
+    ax.scatter(dp[0, :], dp[1, :], c='orange')
 
     for i in range(dp.shape[1]):
-        if dp[0,i]<0.5:
-            eps_x=-epsilon
+        if dp[0, i] < 0.5:
+            eps_x = -epsilon
         else:
-            eps_x=epsilon
-        if dp[1,i]<np.max(dp[1,:])/2.0:
-            eps_y=-epsilon
+            eps_x = epsilon
+        if dp[1, i] < np.max(dp[1, :]) / 2.0:
+            eps_y = -epsilon
         else:
-            eps_y=epsilon
-        ax.text(dp[0,i]+eps_x,dp[1,i]+eps_y,"{}".format(i+1))
-    return ax      
+            eps_y = epsilon
+        ax.text(dp[0, i] + eps_x, dp[1, i] + eps_y, "{}".format(i + 1))
+    return ax

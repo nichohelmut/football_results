@@ -1,12 +1,7 @@
-from sklearn.manifold import LocallyLinearEmbedding
-import scipy
-import numpy as np
 from sklearn.metrics import accuracy_score
-from sklearn.metrics import confusion_matrix
-import matplotlib.pyplot as plt
-import ambidexter_analytics as aa
 
-def learning_curve(preds,y_test, model):
+
+def learning_curve(preds, y_test, model):
     predictions = [round(value) for value in preds]
     # evaluate predictions
     accuracy = accuracy_score(y_test, predictions)
