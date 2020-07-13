@@ -1,3 +1,4 @@
 clustering/__pycache__/*
 *.xlsx
 *.db
+.ipynb_checkpoints/*
