@@ -1,6 +1,6 @@
 clustering/__pycache__/*
 *.xlsx
 *.db
-.ipynb_checkpoints/*
 .idea/*
 *.xml
+/.ipynb_checkpoints/
