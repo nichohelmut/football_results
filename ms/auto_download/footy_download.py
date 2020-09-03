@@ -16,12 +16,7 @@ import os
 
 class FootyStats():
     def __init__(self):
-        path = '/Users/nicholas/Documents/private code/DS/bookie/udacity_bookie/udacity_ML/top_leagues_teams_stats//'
-
-        self.driver = webdriver.Chrome(chrome_options=self.download_path(path),
-                                       executable_path="/usr/local/bin/chromedriver")
-
-    def download_path(self, path):
+        path = '/Users/nicholas/Documents/private code/DS/bookie/udacity_bookie/udacity_ML/ms/auto_download/auto_download_files//'
         options = Options()
         options.add_argument('start-maximized')
         options.add_argument("disable-infobars")
@@ -30,7 +25,8 @@ class FootyStats():
                  # IMPORTANT - ENDING SLASH V IMPORTANT
                  "directory_upgrade": True}
         options.add_experimental_option("prefs", prefs)
-        return options
+        self.driver = webdriver.Chrome(chrome_options=options,
+                                       executable_path="/usr/local/bin/chromedriver")
 
     def login(self):
         self.driver.get('https://footystats.org/')
@@ -58,7 +54,7 @@ class FootyStats():
         csv_btn.click()
 
     def csv_downloads(self):
-        mydir = "/Users/nicholas/Documents/private code/DS/bookie/udacity_bookie/udacity_ML/top_leagues_teams_stats"
+        mydir = '/Users/nicholas/Documents/private code/DS/bookie/udacity_bookie/udacity_ML/ms/auto_download/auto_download_files//'
         filelist = [f for f in os.listdir(mydir) if f.endswith(".csv")]
         for f in filelist:
             os.remove(os.path.join(mydir, f))
