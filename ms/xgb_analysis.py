@@ -1,12 +1,6 @@
 import xgboost as xgb
 import pandas as pd
-import seaborn as sns
 import numpy as np
-import matplotlib.pyplot as plt
-import matplotlib.style as style
-from sklearn.linear_model import LogisticRegression
-import clustering as cl
-from sklearn.feature_selection import SelectFromModel
 from sklearn.metrics import accuracy_score
 from sklearn.model_selection import KFold
 import warnings
@@ -88,12 +82,9 @@ class XGBAnalysis:
         xgb_df_next_games['tipico quota'] = 0
         xgb_df_next_games['R'] = False
 
-        self.upper_limits()
-        print(xgb_df_next_games)
-        self.under_limits()
         return xgb_df_next_games
 
-    def xgb_fit(self):
+    def xgb_fit_and_predict(self):
         X_train, X_test, y_train, y_test = self.k_fold()
         eval_set = [(X_train, y_train), (X_test, y_test)]
         XGB_model = self.xgb_model()
@@ -110,8 +101,23 @@ class XGBAnalysis:
         self.under_limits()
 
         self.feature_importance(XGB_model)
-        self.xgb_predict(XGB_model)
+        xgb_df_next_games = self.xgb_predict(XGB_model)
+
+        df_all = pd.read_pickle("pickle_files/df_all.pkl")
+
+        for index, row in xgb_df_next_games.iterrows():
+            odds_home = df_all.loc[index]['odds_ft_home_team_win']
+            odds_draw = df_all.loc[index]['odds_ft_draw']
+            odds_away = df_all.loc[index]['odds_ft_away_team_win']
+
+            xgb_df_next_games.at[index, 'odds_ft_home_team_win'] = odds_home
+            xgb_df_next_games.at[index, 'odds_ft_draw'] = odds_draw
+            xgb_df_next_games.at[index, 'odds_ft_away_team_win'] = odds_away
+
+        self.upper_limits()
+        print(xgb_df_next_games)
+        self.under_limits()
 
 
 bot = XGBAnalysis()
-bot.xgb_fit()
+bot.xgb_fit_and_predict()

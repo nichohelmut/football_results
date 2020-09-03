@@ -81,7 +81,7 @@ class AA:
         return X
 
     def aa_analysis(self):
-        archetypal = cl.ArchetypalAnalysis(n_archetypes=5, iterations=20, tmax=300)
+        archetypal = cl.ArchetypalAnalysis(n_archetypes=5, iterations=5, tmax=300)
         model = archetypal.fit(self.matrix())
 
         return model

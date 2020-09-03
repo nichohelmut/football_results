@@ -118,6 +118,7 @@ class PreProcess:
         df_all = self.from_dict_value_to_df(d_AVGFTAG)
         df_all.sort_index(inplace=True)
         df_all['AVGATGDIFF'].fillna(0, inplace=True)
+        df_all.to_pickle('pickle_files/df_all.pkl')
 
         return df_all
 
