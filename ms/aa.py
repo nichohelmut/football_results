@@ -6,7 +6,7 @@ import warnings
 warnings.filterwarnings('ignore')
 
 
-class AA():
+class AA:
     def __init__(self):
         pass
 
@@ -18,13 +18,13 @@ class AA():
         return df
 
     def european_leagues(self):
-        df_france = self.country_df("../auto_download/auto_download_files/france-ligue-1-teams-2019-to-2020-stats.csv")
+        df_france = self.country_df("auto_download/auto_download_files/france-ligue-1-teams-2019-to-2020-stats.csv")
         df_germany = self.country_df(
-            "../auto_download/auto_download_files/germany-bundesliga-teams-2019-to-2020-stats.csv")
+            "auto_download/auto_download_files/germany-bundesliga-teams-2019-to-2020-stats.csv")
         df_england = self.country_df(
-            "../auto_download/auto_download_files/england-premier-league-teams-2019-to-2020-stats.csv")
-        df_italy = self.country_df("../auto_download/auto_download_files/italy-serie-a-teams-2019-to-2020-stats.csv")
-        df_spain = self.country_df("../auto_download/auto_download_files/spain-la-liga-teams-2019-to-2020-stats.csv")
+            "auto_download/auto_download_files/england-premier-league-teams-2019-to-2020-stats.csv")
+        df_italy = self.country_df("auto_download/auto_download_files/italy-serie-a-teams-2019-to-2020-stats.csv")
+        df_spain = self.country_df("auto_download/auto_download_files/spain-la-liga-teams-2019-to-2020-stats.csv")
 
         df_all = pd.concat([df_germany, df_england, df_italy, df_spain, df_france], sort=False)
         df_all.reset_index(inplace=True)
@@ -114,6 +114,5 @@ class AA():
         self.data_labels(A)
         df_teams_only_aa.to_pickle("pickle_files/df_teams_only_aa.pkl")
 
-
-# AA_analysis = AA()
-# AA_analysis.run()
+AA_analysis = AA()
+AA_analysis.run()
