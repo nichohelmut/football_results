@@ -58,8 +58,6 @@ class PreProcess:
         df_matches_with_aa_complete = df_matches_with_aa.copy()
         df_matches_with_aa_complete = df_matches_with_aa_complete.iloc[:self.int_for_test, :]
 
-        pre_cols = [col for col in df_matches_with_aa_complete.columns if 'pre' in col]
-        PRE_cols = [col for col in df_matches_with_aa_complete.columns if 'Pre' in col]
         aa_cols_home = [col for col in df_matches_with_aa_complete.columns if 'ht_' in col]
         aa_cols_away = [col for col in df_matches_with_aa_complete.columns if 'awt_' in col]
 
@@ -218,10 +216,7 @@ class PreProcess:
         Z.to_pickle("pickle_files/Z.pkl")
         df_next_games_teams.to_pickle("pickle_files/next_games.pkl")
 
-
-pre = PreProcess()
-pre.data_for_predict()
-print(' ')
-print('______________________________________________________________')
-print('Transformed, X, Y and Z pickel files in "pickle_files" folder!')
-print('______________________________________________________________')
+        print(' ')
+        print('______________________________________________________________')
+        print('Transformed, X, Y and Z pickel files in "pickle_files" folder!')
+        print('______________________________________________________________')

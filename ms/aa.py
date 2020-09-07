@@ -114,5 +114,3 @@ class AA:
         self.data_labels(A)
         df_teams_only_aa.to_pickle("pickle_files/df_teams_only_aa.pkl")
 
-AA_analysis = AA()
-AA_analysis.run()

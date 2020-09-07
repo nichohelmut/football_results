@@ -4,5 +4,8 @@ clustering/__pycache__/*
 .idea/*
 *.xml
 /.ipynb_checkpoints/
-/auto_download/secrets.py
-/selenium-server-standalone.jar
+/ms/auto_download/secrets.py
+/ms/pickle_files/
+ __pycache__/
+/config.py
+/ms/config.py/

@@ -1,17 +1,33 @@
-import aa
-import xgb_preprocess
-import xgb_analysis
+from aa import AA
+from xgb_preprocess import PreProcess
+from xgb_analysis import XGBAnalysis
+from auto_download.footy_download import FootyStats
+from database import MySQLDatabase
+from datetime import date
 
 
-class App:
-    def __init__(self):
-        pass
+def run_bookie():
+    if date.today().weekday() == 3:
+        stats = FootyStats()
+        stats.login()
+        stats.csv_downloads()
 
-    def run_bookie(self):
-        aa.AA()
-        xgb_preprocess.PreProcess()
-        xgb_analysis.XGBAnalysis()
+    archetype = AA()
+    archetype.run()
+
+    prepro = PreProcess()
+    prepro.data_for_predict()
+
+    model = XGBAnalysis()
+    model.xgb_fit_and_predict()
 
 
-bot = App()
-bot.run_bookie()
+def check_results():
+    db = MySQLDatabase()
+    db.get('bookie')
+
+
+if date.today().weekday() == 3:
+    run_bookie()
+else:
+    check_results()

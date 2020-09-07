@@ -4,6 +4,7 @@ import numpy as np
 from sklearn.metrics import accuracy_score
 from sklearn.model_selection import KFold
 import warnings
+from database import MySQLDatabase
 
 warnings.filterwarnings('ignore')
 
@@ -36,7 +37,7 @@ class XGBAnalysis:
         kf.get_n_splits(self.X)
 
         for train_index, test_index in kf.split(self.X):
-            print("TRAIN:", train_index, "TEST:", test_index)
+            # print("TRAIN:", train_index, "TEST:", test_index)
             X_train, X_test = self.X[train_index], self.X[test_index]
             y_train, y_test = self.Y[train_index], self.Y[test_index]
 
@@ -79,10 +80,13 @@ class XGBAnalysis:
         z_pred = model.predict(self.Z)
         xgb_df_next_games = self.df_next_games.copy()
         xgb_df_next_games['predicted_result'] = z_pred
-        xgb_df_next_games['tipico quota'] = 0
-        xgb_df_next_games['R'] = False
+        xgb_df_next_games['real_result'] = False
 
         return xgb_df_next_games
+
+    def save_to_db(self, df):
+        db = MySQLDatabase()
+        db.write(df)
 
     def xgb_fit_and_predict(self):
         X_train, X_test, y_train, y_test = self.k_fold()
@@ -118,6 +122,6 @@ class XGBAnalysis:
         print(xgb_df_next_games)
         self.under_limits()
 
+        self.save_to_db(xgb_df_next_games)
 
-bot = XGBAnalysis()
-bot.xgb_fit_and_predict()
+        return xgb_df_next_games

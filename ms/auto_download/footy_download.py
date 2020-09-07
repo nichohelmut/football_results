@@ -1,20 +1,12 @@
 # import requests
 from selenium import webdriver
 from time import sleep
-from secrets import username, password
+from .secrets import username, password
 from selenium.webdriver.chrome.options import Options
 import os
 
 
-# import random
-# import string
-# from random import randrange
-# from PIL import Image
-# import requests
-# from io import BytesIO
-
-
-class FootyStats():
+class FootyStats:
     def __init__(self):
         path = '/Users/nicholas/Documents/private code/DS/bookie/udacity_bookie/udacity_ML/ms/auto_download/auto_download_files//'
         options = Options()
@@ -104,8 +96,3 @@ class FootyStats():
         csv_de_actual = self.driver.find_element_by_xpath(
             '//*[@id="csv_content"]/div[2]/div[2]/div[19]/div/table/tbody/tr[1]/td[3]/a')
         csv_de_actual.click()
-
-
-bot = FootyStats()
-bot.login()
-bot.csv_downloads()
