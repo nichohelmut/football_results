@@ -1,0 +1,7 @@
+pandas
+scikit-learn
+xgboost
+sqlalchemy
+selenium
+mysql-connector
+pymysql

@@ -27,7 +27,7 @@ def check_results():
     db.get('bookie')
 
 
-if date.today().weekday() == 3:
-    run_bookie()
-else:
-    check_results()
+#if date.today().weekday() == 3:
+run_bookie()
+#else:
+check_results()

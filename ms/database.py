@@ -26,7 +26,7 @@ class MySQLDatabase:
                                            host=self.host,
                                            db=self.dbname
                                            ))
-            df.to_sql('bookie', con=engine, if_exists='replace')
+            df.to_sql('bookie', con=engine, if_exists='append')
             print("Successfully wrote to Database")
         except Exception as e:
             print("Error: {}".format(str(e)))

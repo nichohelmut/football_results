@@ -50,6 +50,9 @@ class FootyStats:
         filelist = [f for f in os.listdir(mydir) if f.endswith(".csv")]
         for f in filelist:
             os.remove(os.path.join(mydir, f))
+        # os.rename(
+        #     "/Users/nicholas/Documents/private code/DS/bookie/udacity_bookie/udacity_ML/ms/auto_download/auto_download_files",
+        #     "/Users/nicholas/Documents/private code/DS/bookie/udacity_bookie/udacity_ML/ms/auto_download/auto_download_files_previous")
 
         sleep(3)
 

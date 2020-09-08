@@ -8,4 +8,9 @@ clustering/__pycache__/*
 /ms/pickle_files/
  __pycache__/
 /config.py
-/ms/config.py/
+/ms/config.py
+/__pycache__/*
+auto_download/__pycache__/*
+/ms/__pycache__/
+/ms/clustering/__pycache__/
+/*.pyc
