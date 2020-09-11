@@ -1,7 +1,16 @@
 import pandas as pd
 import warnings
+import os
 
 warnings.filterwarnings('ignore')
+
+PATH = os.path.dirname(os.path.abspath(__file__))
+path_to_a_down = os.path.join(PATH, "auto_download")
+path_to_a_down_files = os.path.join(path_to_a_down, "auto_download_files")
+path_to_pickle = os.path.join(PATH, "pickle_files")
+path_to_g_stats = os.path.join(PATH, "germany_stats")
+path_to_t_stats = os.path.join(path_to_g_stats, "team_stats")
+path_to_m_stats = os.path.join(path_to_g_stats, "match_stats")
 
 
 class PreProcess:
@@ -27,11 +36,15 @@ class PreProcess:
 
     def load_clean_data(self):
         df_matches_20_21 = pd.read_csv(
-            "auto_download/auto_download_files/germany-bundesliga-matches-2020-to-2021-stats.csv")
-        df_matches_19_20 = pd.read_csv("germany_stats/match_stats/germany-bundesliga-matches-2019-to-2020-stats.csv")
-        df_matches_18_19 = pd.read_csv("germany_stats/match_stats/germany-bundesliga-matches-2018-to-2019-stats.csv")
-        df_matches_17_18 = pd.read_csv("germany_stats/match_stats/germany-bundesliga-matches-2017-to-2018-stats.csv")
-        df_matches_16_17 = pd.read_csv("germany_stats/match_stats/germany-bundesliga-matches-2016-to-2017-stats.csv")
+            os.path.join(path_to_a_down_files, "germany-bundesliga-matches-2020-to-2021-stats.csv"))
+        df_matches_19_20 = pd.read_csv(
+            os.path.join(path_to_m_stats, "germany-bundesliga-matches-2019-to-2020-stats.csv"))
+        df_matches_18_19 = pd.read_csv(
+            os.path.join(path_to_m_stats, "germany-bundesliga-matches-2018-to-2019-stats.csv"))
+        df_matches_17_18 = pd.read_csv(
+            os.path.join(path_to_m_stats, "germany-bundesliga-matches-2017-to-2018-stats.csv"))
+        df_matches_16_17 = pd.read_csv(
+            os.path.join(path_to_m_stats, "germany-bundesliga-matches-2016-to-2017-stats.csv"))
 
         df_all = pd.concat([df_matches_20_21, df_matches_19_20, df_matches_18_19, df_matches_17_18, df_matches_16_17],
                            sort=False)
@@ -46,7 +59,7 @@ class PreProcess:
         return df_all
 
     def append_aa_result(self):
-        df_teams_aa = pd.read_pickle("pickle_files/df_teams_only_aa.pkl")
+        df_teams_aa = pd.read_pickle(os.path.join(path_to_pickle, "df_teams_only_aa.pkl"))
 
         columns = pd.Series(df_teams_aa.iloc[:, :-1].columns)
         columns_h = list(columns.apply(lambda x: "ht_" + x))
@@ -116,7 +129,7 @@ class PreProcess:
         df_all = self.from_dict_value_to_df(d_AVGFTAG)
         df_all.sort_index(inplace=True)
         df_all['AVGATGDIFF'].fillna(0, inplace=True)
-        df_all.to_pickle('pickle_files/df_all.pkl')
+        df_all.to_pickle(os.path.join(path_to_pickle, 'df_all.pkl'))
 
         return df_all
 
@@ -211,10 +224,10 @@ class PreProcess:
 
         X = X.iloc[17:, :]
         Y = Y[17:]
-        X.to_pickle("pickle_files/X.pkl")
-        Y.to_pickle("pickle_files/Y.pkl")
-        Z.to_pickle("pickle_files/Z.pkl")
-        df_next_games_teams.to_pickle("pickle_files/next_games.pkl")
+        X.to_pickle(os.path.join(path_to_pickle, "X.pkl"))
+        Y.to_pickle(os.path.join(path_to_pickle, "Y.pkl"))
+        Z.to_pickle(os.path.join(path_to_pickle, "Z.pkl"))
+        df_next_games_teams.to_pickle(os.path.join(path_to_pickle, "next_games.pkl"))
 
         print(' ')
         print('______________________________________________________________')

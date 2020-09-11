@@ -97,5 +97,8 @@ class FootyStats:
         sleep(2)
 
         csv_de_actual = self.driver.find_element_by_xpath(
-            '//*[@id="csv_content"]/div[2]/div[2]/div[19]/div/table/tbody/tr[1]/td[3]/a')
+            '//*[@id="csv_content"]/div[2]/div[2]/div[20]/div/table/tbody/tr[1]/td[3]/a')
         csv_de_actual.click()
+
+# bot = FootyStats()
+# bot.csv_downloads()

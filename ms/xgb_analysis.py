@@ -5,14 +5,20 @@ from sklearn.metrics import accuracy_score
 from sklearn.model_selection import KFold
 import warnings
 from database import MySQLDatabase
+import os
+import time
 
 warnings.filterwarnings('ignore')
+
+PATH = os.path.dirname(os.path.abspath(__file__))
+path_to_pickle = os.path.join(PATH, "pickle_files")
 
 
 class XGBAnalysis:
     def __init__(self):
-        self.X_with_columns = pd.read_pickle("pickle_files/X.pkl")
-        self.Z_with_columns = pd.read_pickle("pickle_files/Z.pkl")
+
+        self.X_with_columns = pd.read_pickle(os.path.join(path_to_pickle, "X.pkl"))
+        self.Z_with_columns = pd.read_pickle(os.path.join(path_to_pickle, "Z.pkl"))
 
         columns_to_drop = []
 
@@ -20,9 +26,9 @@ class XGBAnalysis:
         self.Z_with_columns.drop(columns_to_drop, axis=1, inplace=True)
 
         self.X = np.array(self.X_with_columns)
-        self.Y = np.array(pd.read_pickle("pickle_files/Y.pkl"))
+        self.Y = np.array(pd.read_pickle(os.path.join(path_to_pickle, "Y.pkl")))
         self.Z = np.array(self.Z_with_columns)
-        self.df_next_games = pd.read_pickle("pickle_files/next_games.pkl")
+        self.df_next_games = pd.read_pickle(os.path.join(path_to_pickle, "next_games.pkl"))
 
     def upper_limits(self):
         print(' ')
@@ -107,7 +113,7 @@ class XGBAnalysis:
         self.feature_importance(XGB_model)
         xgb_df_next_games = self.xgb_predict(XGB_model)
 
-        df_all = pd.read_pickle("pickle_files/df_all.pkl")
+        df_all = pd.read_pickle(os.path.join(path_to_pickle, "df_all.pkl"))
 
         for index, row in xgb_df_next_games.iterrows():
             odds_home = df_all.loc[index]['odds_ft_home_team_win']
@@ -117,6 +123,10 @@ class XGBAnalysis:
             xgb_df_next_games.at[index, 'odds_ft_home_team_win'] = odds_home
             xgb_df_next_games.at[index, 'odds_ft_draw'] = odds_draw
             xgb_df_next_games.at[index, 'odds_ft_away_team_win'] = odds_away
+
+        os.environ['TZ'] = 'EST-1,M4.1.0,M10.5.0'
+        time.tzset()
+        xgb_df_next_games["date_time"] = time.strftime('%X %x %Z')
 
         self.upper_limits()
         print(xgb_df_next_games)
