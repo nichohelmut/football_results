@@ -39,7 +39,7 @@ class MySQLDatabase:
         :return: dataframe
         """
         try:
-            print("Connecting to Database")
+            print("Connecting to Database and geting results")
             query = f'SELECT * FROM bookie.{table}'
             url = f'mysql+pymysql://{self.user}:{self.pwd}@{self.host}:{self.port}/{self.dbname}'
             engine = create_engine(url)

@@ -7,6 +7,8 @@ RUN pip3 install --upgrade pip
 RUN echo Copying the ADSC chart service into a service directory.
 COPY ./ms /bookie
 WORKDIR /bookie
+ENV TZ=Europe/Amsterdam
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 RUN echo Installing Python packages listed in requirements.txt
 RUN pip3 install -r requirements.txt
 RUN echo Executing job

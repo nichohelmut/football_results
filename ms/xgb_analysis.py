@@ -124,7 +124,7 @@ class XGBAnalysis:
             xgb_df_next_games.at[index, 'odds_ft_draw'] = odds_draw
             xgb_df_next_games.at[index, 'odds_ft_away_team_win'] = odds_away
 
-        os.environ['TZ'] = 'EST-1,M4.1.0,M10.5.0'
+        os.environ['TZ'] = 'Europe/Amsterdam'
         time.tzset()
         xgb_df_next_games["date_time"] = time.strftime('%X %x %Z')
 

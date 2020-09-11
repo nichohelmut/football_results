@@ -5,3 +5,4 @@ sqlalchemy
 selenium
 mysql-connector
 pymysql
+pytest
