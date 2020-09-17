@@ -56,6 +56,15 @@ class FootyStats:
 
         sleep(3)
 
+        csv_de_actual = self.driver.find_element_by_xpath(
+            '//*[@id="csv_content"]/div[2]/div[2]/div[20]/div/table/tbody/tr[1]/td[3]/a')
+        csv_de_actual.click()
+
+        previous_btn = self.driver.find_element_by_xpath('//*[@id="csv_content"]/div[2]/div[1]/ul/li[2]/a')
+        self.driver.execute_script("arguments[0].click();", previous_btn)
+
+        sleep(2)
+
         csv_uk = self.driver.find_element_by_xpath(
             '//*[@id="csv_content"]/div[2]/div[2]/div[48]/div/table/tbody/tr[1]/td[4]/a')
 
@@ -90,15 +99,6 @@ class FootyStats:
         csv_es.click()
 
         sleep(2)
-
-        actual_btn = self.driver.find_element_by_xpath('//*[@id="csv_content"]/div[2]/div[1]/ul/li[1]/a')
-        self.driver.execute_script("arguments[0].click();", actual_btn)
-
-        sleep(2)
-
-        csv_de_actual = self.driver.find_element_by_xpath(
-            '//*[@id="csv_content"]/div[2]/div[2]/div[20]/div/table/tbody/tr[1]/td[3]/a')
-        csv_de_actual.click()
 
 # bot = FootyStats()
 # bot.csv_downloads()
