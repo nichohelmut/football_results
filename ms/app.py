@@ -3,6 +3,7 @@ from xgb_preprocess import PreProcess
 from xgb_analysis import XGBAnalysis
 from auto_download.footy_download import FootyStats
 from database import MySQLDatabase
+from result_check import ResultCheck
 from datetime import date
 
 
@@ -26,9 +27,11 @@ def check_results():
     db = MySQLDatabase()
     db.get('bookie')
 
+    r_check = ResultCheck()
+    r_check.update_mysql()
 
 
-#if date.today().weekday() == 3:
+# if date.today().weekday() == 3:
 run_bookie()
-#else:
+# else:
 check_results()
