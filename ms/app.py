@@ -8,10 +8,10 @@ from datetime import date
 
 
 def run_bookie():
-    if date.today().weekday() == 3:
-        stats = FootyStats()
-        stats.login()
-        stats.csv_downloads()
+    # if date.today().weekday() == 3:
+    #     stats = FootyStats()
+    #     stats.login()
+    #     stats.csv_downloads()
 
     archetype = AA()
     archetype.run()

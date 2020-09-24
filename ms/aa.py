@@ -24,19 +24,19 @@ class AA:
 
     def european_leagues(self):
         df_france = self.country_df(os.path.join(path_to_a_down_files,
-                                                 "france-ligue-1-teams-2019-to-2020-stats.csv"))
+                                                 "france-ligue-1-teams-2020-to-2021-stats.csv"))
 
         df_germany = self.country_df(os.path.join(path_to_a_down_files,
-                                                  "germany-bundesliga-teams-2019-to-2020-stats.csv"))
+                                                  "germany-bundesliga-teams-2020-to-2021-stats.csv"))
 
         df_england = self.country_df(os.path.join(path_to_a_down_files,
-                                                  "england-premier-league-teams-2019-to-2020-stats.csv"))
+                                                  "england-premier-league-teams-2020-to-2021-stats.csv"))
 
         df_italy = self.country_df(os.path.join(path_to_a_down_files,
-                                                "italy-serie-a-teams-2019-to-2020-stats.csv"))
+                                                "italy-serie-a-teams-2020-to-2021-stats.csv"))
 
         df_spain = self.country_df(os.path.join(path_to_a_down_files,
-                                                "spain-la-liga-teams-2019-to-2020-stats.csv"))
+                                                "spain-la-liga-teams-2020-to-2021-stats.csv"))
 
         df_all = pd.concat([df_germany, df_england, df_italy, df_spain, df_france], sort=False)
         df_all.reset_index(inplace=True)
@@ -52,6 +52,11 @@ class AA:
         path_2_bl = os.path.join(path_to_t_stats, "germany-2-bundesliga-teams-2019-to-2020-stats.csv")
         df_teams_last_second = pd.read_csv(path_2_bl)
         df_bielefeld = df_teams_last_second[df_teams_last_second['common_name'] == 'Arminia Bielefeld']
+
+        path_bl = os.path.join(path_to_t_stats, "germany-bundesliga-teams-2019-to-2020-stats.csv")
+        df_temas_last = pd.read_csv(path_bl)
+        df_dusseldorf = df_temas_last[df_temas_last['common_name'] == 'Fortuna Düsseldorf']
+        df_paderborn = df_temas_last[df_temas_last['common_name'] == 'Paderborn']
 
         path_teams_last_first = os.path.join(path_to_t_stats, 'germany-bundesliga-teams-2018-to-2019-stats.csv')
         df_teams_last_first = pd.read_csv(path_teams_last_first)
@@ -70,7 +75,8 @@ class AA:
         df_ingolstadt = df_teams_last_16_17[df_teams_last_16_17['common_name'] == 'Ingolstadt']
 
         df_league_climbers = pd.concat(
-            [df_nueremberg, df_bielefeld, df_hannover, df_stuttgart, df_hsv, df_darmstadt, df_ingolstadt], sort=False)
+            [df_nueremberg, df_bielefeld, df_hannover, df_stuttgart, df_hsv, df_darmstadt, df_ingolstadt, df_dusseldorf,
+             df_paderborn], sort=False)
         df_league_climbers.reset_index(inplace=True)
         df_league_climbers.drop("index", axis=1, inplace=True)
         df_all_climbers = df_league_climbers.copy()
@@ -113,11 +119,14 @@ class AA:
     def data_labels(self, A):
         teamsList = self.top_leagues_with_climbers()['team_name']
         temasColumnOrdering = {x: y for y, x in enumerate(teamsList)}
-        labels = {v: k for k, v in temasColumnOrdering.items()}
+        d_labels = {v: k for k, v in temasColumnOrdering.items()}
 
-        # CHANGE HARD CODED RANGE
-        for i in range(0, 104):
-            print("{:40}".format(labels[i]), end='')
+        # fixes enumerate bug
+        df_labels = pd.DataFrame.from_dict(d_labels, orient='index').reset_index(drop=True)
+        labels = df_labels.to_dict()
+
+        for i in range(0, len(labels[0])):
+            print("{:40}".format(labels[0][i]), end='')
             for j in A[:, i]:
                 print("{:.3f} ".format(j), end='')
             print("")

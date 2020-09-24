@@ -44,3 +44,6 @@ def test_archetypal_transform():
 
     '''length of A should be number of archetypes selected in model fitting'''
     assert len(A) == archetype_model.n_archetypes
+
+# TODO: CREATE TEST FOR CHECKING ENUMERATION OF LABELS DICT
+# def test_enumaration_of_labels

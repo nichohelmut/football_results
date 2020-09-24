@@ -86,3 +86,5 @@ def enter_username(user):
 def enter_password(passw):
     pw_in = driver.find_element_by_xpath('//*[@id="password"]')
     pw_in.send_keys(passw)
+
+# TODO: TEST CORRECT NAME DOWNLOADED CSV FILES

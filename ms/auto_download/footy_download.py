@@ -50,55 +50,46 @@ class FootyStats:
         filelist = [f for f in os.listdir(mydir) if f.endswith(".csv")]
         for f in filelist:
             os.remove(os.path.join(mydir, f))
-        # os.rename(
-        #     "/Users/nicholas/Documents/private code/DS/bookie/udacity_bookie/udacity_ML/ms/auto_download/auto_download_files",
-        #     "/Users/nicholas/Documents/private code/DS/bookie/udacity_bookie/udacity_ML/ms/auto_download/auto_download_files_previous")
 
         sleep(3)
-
-        csv_de_actual = self.driver.find_element_by_xpath(
-            '//*[@id="csv_content"]/div[2]/div[2]/div[20]/div/table/tbody/tr[1]/td[3]/a')
-        csv_de_actual.click()
-
-        previous_btn = self.driver.find_element_by_xpath('//*[@id="csv_content"]/div[2]/div[1]/ul/li[2]/a')
-        self.driver.execute_script("arguments[0].click();", previous_btn)
+        # de match
+        csv_de_match = self.driver.find_element_by_xpath(
+            '//*[@id="csv_content"]/div[2]/div[2]/div[24]/div/table/tbody/tr[1]/td[3]/a')
+        self.driver.execute_script("arguments[0].click();", csv_de_match)
 
         sleep(2)
-
-        csv_uk = self.driver.find_element_by_xpath(
-            '//*[@id="csv_content"]/div[2]/div[2]/div[48]/div/table/tbody/tr[1]/td[4]/a')
-
-        csv_uk.click()
-
-        sleep(2)
-
-        csv_fr = self.driver.find_element_by_xpath(
-            '//*[@id="csv_content"]/div[2]/div[2]/div[56]/div/table/tbody/tr[1]/td[4]/a')
-
-        csv_fr.click()
-
-        sleep(2)
-
+        # de teams
         csv_de = self.driver.find_element_by_xpath(
-            '//*[@id="csv_content"]/div[2]/div[2]/div[60]/div/table/tbody/tr[1]/td[4]/a')
-
-        csv_de.click()
+            '//*[@id="csv_content"]/div[2]/div[2]/div[24]/div/table/tbody/tr[1]/td[4]/a')
+        self.driver.execute_script("arguments[0].click();", csv_de)
 
         sleep(2)
+        # england teams
+        csv_uk = self.driver.find_element_by_xpath(
+            '//*[@id="csv_content"]/div[2]/div[2]/div[19]/div/table/tbody/tr[2]/td[4]/a')
+        self.driver.execute_script("arguments[0].click();", csv_uk)
 
+        sleep(2)
+        # france teams
+        csv_fr = self.driver.find_element_by_xpath(
+            '//*[@id="csv_content"]/div[2]/div[2]/div[23]/div/table/tbody/tr[1]/td[4]/a')
+        self.driver.execute_script("arguments[0].click();", csv_fr)
+
+        sleep(2)
+        # italy teams
         csv_it = self.driver.find_element_by_xpath(
-            '//*[@id="csv_content"]/div[2]/div[2]/div[77]/div/table/tbody/tr[1]/td[4]/a')
+            '//*[@id="csv_content"]/div[2]/div[2]/div[31]/div/table/tbody/tr[1]/td[4]/a')
+        self.driver.execute_script("arguments[0].click();", csv_it)
 
-        csv_it.click()
-
-        sleep(2)
-
-        csv_es = self.driver.find_element_by_xpath(
-            '//*[@id="csv_content"]/div[2]/div[2]/div[138]/div/table/tbody/tr[1]/td[4]/a')
-
-        csv_es.click()
+        sleep(4)
+        # spain teams
+        csv_it = self.driver.find_element_by_xpath(
+            '//*[@id="csv_content"]/div[2]/div[2]/div[53]/div/table/tbody/tr[1]/td[4]/a')
+        self.driver.execute_script("arguments[0].click();", csv_it)
 
         sleep(2)
+
 
 # bot = FootyStats()
+# bot.login()
 # bot.csv_downloads()
