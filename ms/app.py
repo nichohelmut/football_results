@@ -8,10 +8,10 @@ from datetime import date
 
 
 def run_bookie():
-    # if date.today().weekday() == 3:
-    #     stats = FootyStats()
-    #     stats.login()
-    #     stats.csv_downloads()
+    if date.today().weekday() == 3:
+        stats = FootyStats()
+        stats.login()
+        stats.csv_downloads()
 
     archetype = AA()
     archetype.run()
@@ -31,7 +31,9 @@ def check_results():
     r_check.update_mysql()
 
 
-# if date.today().weekday() == 3:
-run_bookie()
-# else:
-check_results()
+if date.today().weekday() == 3:
+    run_bookie()
+elif date.today().weekday() == 0:
+    check_results()
+else:
+    print('DB is updated or no match day due!')

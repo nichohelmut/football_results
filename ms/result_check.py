@@ -1,14 +1,24 @@
 import pandas as pd
 from database import MySQLDatabase
+from auto_download.footy_download import FootyStats
 import os
+from datetime import date
 
 PATH = os.path.dirname(os.path.abspath(__file__))
 path_to_pickle = os.path.join(PATH, "germany_stats/match_stats")
+path_to_actual = os.path.join(path_to_pickle, "match_stats_20_21")
+
+if date.today().weekday() == 0:
+    footy = FootyStats(
+        path='/Users/nicholas/Documents/private code/DS/bookie/udacity_bookie/udacity_ML/ms/germany_stats/match_stats/match_stats_20_21//')
+    footy.login()
+    footy.clean_dir()
+    footy.csv_match_actual()
 
 
 class ResultCheck:
     def __init__(self):
-        self.results = pd.read_csv(os.path.join(path_to_pickle, "germany-bundesliga-matches-2020-to-2021-stats.csv"))
+        self.results = pd.read_csv(os.path.join(path_to_actual, "germany-bundesliga-matches-2020-to-2021-stats.csv"))
 
     def read_from_db(self):
         global db

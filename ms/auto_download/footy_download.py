@@ -7,8 +7,9 @@ import os
 
 
 class FootyStats:
-    def __init__(self):
-        path = '/Users/nicholas/Documents/private code/DS/bookie/udacity_bookie/udacity_ML/ms/auto_download/auto_download_files//'
+    def __init__(self,
+                 path='/Users/nicholas/Documents/private code/DS/bookie/udacity_bookie/udacity_ML/ms/auto_download/auto_download_files//'):
+        self.auto_path = path
         options = Options()
         options.add_argument('start-maximized')
         options.add_argument("disable-infobars")
@@ -45,17 +46,23 @@ class FootyStats:
         csv_btn = self.driver.find_element_by_xpath('//*[@id="content"]/div/div/div/div[1]/div[5]/a[2]')
         csv_btn.click()
 
-    def csv_downloads(self):
-        mydir = '/Users/nicholas/Documents/private code/DS/bookie/udacity_bookie/udacity_ML/ms/auto_download/auto_download_files//'
+    def clean_dir(self):
+        mydir = self.auto_path
         filelist = [f for f in os.listdir(mydir) if f.endswith(".csv")]
         for f in filelist:
             os.remove(os.path.join(mydir, f))
 
-        sleep(3)
-        # de match
+    def csv_match_actual(self):
         csv_de_match = self.driver.find_element_by_xpath(
             '//*[@id="csv_content"]/div[2]/div[2]/div[24]/div/table/tbody/tr[1]/td[3]/a')
         self.driver.execute_script("arguments[0].click();", csv_de_match)
+
+    def csv_downloads(self):
+        self.clean_dir()
+
+        sleep(3)
+        # de match
+        self.csv_match_actual()
 
         sleep(2)
         # de teams
@@ -88,7 +95,6 @@ class FootyStats:
         self.driver.execute_script("arguments[0].click();", csv_it)
 
         sleep(2)
-
 
 # bot = FootyStats()
 # bot.login()
