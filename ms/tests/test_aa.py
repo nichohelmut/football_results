@@ -23,7 +23,7 @@ def test_european_leagues():
 def test_climbers():
     df = archetype.climbers()
 
-    '''length of df should 7'''
+    '''length of df should 9'''
     assert len(df) == 9
 
     '''number of columns of df should 280'''
