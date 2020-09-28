@@ -3,6 +3,7 @@ from selenium import webdriver
 from ms.auto_download.secrets import username, password
 from time import sleep
 import allure
+import os
 
 
 @pytest.fixture()
@@ -12,6 +13,19 @@ def test_setup():
     driver.implicitly_wait(10)
     yield
     driver.quit()
+
+
+@pytest.fixture()
+def name_storage():
+    global table_list
+    table_list = []
+    path_to_a_down_files = '/Users/nicholas/Documents/private code/DS/bookie/udacity_bookie/udacity_ML/ms/auto_download/auto_download_files'
+    for filename in os.listdir(path_to_a_down_files):
+        if filename.endswith('.csv'):
+            print(filename)
+            table_list.append(filename)
+
+    return table_list
 
 
 @allure.description("Clicks log in button")
@@ -87,4 +101,15 @@ def enter_password(passw):
     pw_in = driver.find_element_by_xpath('//*[@id="password"]')
     pw_in.send_keys(passw)
 
-# TODO: TEST CORRECT NAME DOWNLOADED CSV FILES
+
+@allure.description("Checks if correct files were downloaded")
+@allure.severity(severity_level="CRITICAL")
+def test_csv_downloads(name_storage):
+    l_csv_names = ['germany-bundesliga-teams-2020-to-2021-stats.csv',
+                   'spain-la-liga-teams-2020-to-2021-stats.csv',
+                   'france-ligue-1-teams-2020-to-2021-stats.csv',
+                   'england-premier-league-teams-2020-to-2021-stats.csv',
+                   'germany-bundesliga-matches-2020-to-2021-stats.csv',
+                   'italy-serie-a-teams-2020-to-2021-stats.csv']
+
+    assert set(l_csv_names).issubset(table_list) == True

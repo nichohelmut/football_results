@@ -24,7 +24,7 @@ def test_climbers():
     df = archetype.climbers()
 
     '''length of df should 7'''
-    assert len(df) == 7
+    assert len(df) == 9
 
     '''number of columns of df should 280'''
     assert len(df.columns) == 280
