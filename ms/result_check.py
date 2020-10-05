@@ -8,12 +8,14 @@ PATH = os.path.dirname(os.path.abspath(__file__))
 path_to_pickle = os.path.join(PATH, "germany_stats/match_stats")
 path_to_actual = os.path.join(path_to_pickle, "match_stats_20_21")
 
-if date.today().weekday() == 0:
-    footy = FootyStats(
-        path='/Users/nicholas/Documents/private code/DS/bookie/udacity_bookie/udacity_ML/ms/germany_stats/match_stats/match_stats_20_21//')
-    footy.login()
-    footy.clean_dir()
-    footy.csv_match_actual()
+
+# if date.today().weekday() == 0:
+#    # change to os
+#     footy = FootyStats(
+#         path='/Users/nicholas/Documents/private code/DS/bookie/udacity_bookie/udacity_ML/ms/germany_stats/match_stats/match_stats_20_21//')
+#     footy.login()
+#     footy.clean_dir()
+#     footy.csv_match_actual()
 
 
 class ResultCheck:
@@ -29,6 +31,8 @@ class ResultCheck:
 
     def actual_results(self):
         df = self.results
+        print('pimmel9')
+        print(df)
         df.index = df.index + 1224
         df['goal_diff'] = df['home_team_goal_count'] - df['away_team_goal_count']
 
@@ -44,11 +48,15 @@ class ResultCheck:
 
     def update_mysql(self):
         df = self.read_from_db()
-        df = df.drop_duplicates(subset=['index'], keep='last')
+        print('pimmel8')
+        print(df)
         df_actual_rows = self.actual_results().loc[list(df['index'])]
         l_result_last_game = list(df_actual_rows['result'])
         df['real_result'] = l_result_last_game
-        df.drop('level_0', axis=1, inplace=True)
+        # df.drop('level_0', axis=1, inplace=True)
+        df = df.drop_duplicates(subset=['index'], keep='last')
+        print('pimmel5')
+        print(df)
         db.write(df)
 
 # bot = ResultCheck()

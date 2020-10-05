@@ -1,4 +1,4 @@
-from ms.aa import AA
+from ms.python_files.aa import AA
 import numpy as np
 from ms.clustering.clustering import ArchetypalAnalysis
 

@@ -6,9 +6,10 @@ import warnings
 warnings.filterwarnings('ignore')
 
 PATH = os.path.dirname(os.path.abspath(__file__))
-path_to_a_down = os.path.join(PATH, "auto_download")
+path_ms = os.path.dirname(PATH)
+path_to_a_down = os.path.join(path_ms, "auto_download")
 path_to_a_down_files = os.path.join(path_to_a_down, "auto_download_files")
-path_to_pickle = os.path.join(PATH, "pickle_files")
+path_to_pickle = os.path.join(path_ms, "pickle_files")
 
 
 class AA:
@@ -46,7 +47,7 @@ class AA:
         return df_european_leagues
 
     def climbers(self):
-        path_to_g_stats = os.path.join(PATH, "germany_stats")
+        path_to_g_stats = os.path.join(path_ms, "germany_stats")
         path_to_t_stats = os.path.join(path_to_g_stats, "team_stats")
 
         path_2_bl = os.path.join(path_to_t_stats, "germany-2-bundesliga-teams-2019-to-2020-stats.csv")
@@ -106,7 +107,8 @@ class AA:
         return X
 
     def aa_analysis(self):
-        archetypal = cl.ArchetypalAnalysis(n_archetypes=5, iterations=25, tmax=300)
+        # TODO: FIX 5 ARCHETYPES LIMIT
+        archetypal = cl.ArchetypalAnalysis(n_archetypes=5, iterations=3, tmax=300)
         model = archetypal.fit(self.matrix())
 
         return model

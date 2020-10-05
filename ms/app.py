@@ -1,4 +1,4 @@
-from aa import AA
+from python_files.aa import AA
 from xgb_preprocess import PreProcess
 from xgb_analysis import XGBAnalysis
 from auto_download.footy_download import FootyStats
@@ -7,6 +7,7 @@ from result_check import ResultCheck
 from datetime import date
 
 
+# BEFORE NEW PREDICTION UPDATE INT IN xgb_preprocess!!!elf!1!!
 def run_bookie():
     if date.today().weekday() == 3:
         stats = FootyStats()
@@ -24,16 +25,14 @@ def run_bookie():
 
 
 def check_results():
-    db = MySQLDatabase()
-    db.get('bookie')
 
     r_check = ResultCheck()
     r_check.update_mysql()
 
 
-if date.today().weekday() == 3:
-    run_bookie()
-elif date.today().weekday() == 0:
-    check_results()
-else:
-    print('DB is updated or no match day due!')
+# if date.today().weekday() == 3:
+run_bookie()
+# elif date.today().weekday() == 0:
+check_results()
+# else:
+#     print('DB is updated or no match day due!')
