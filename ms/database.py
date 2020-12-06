@@ -1,17 +1,17 @@
 import sys
 from sqlalchemy import create_engine
 import pandas as pd
-import config
+import os
 
 
 class MySQLDatabase:
     def __init__(self):
         try:
-            self.dbname = config.db_name
-            self.host = config.host
+            self.dbname = os.getenv("RDS_1_DB_NAME")
+            self.host = os.getenv("RDS_1_HOST")
             self.port = '3306'
-            self.user = config.user
-            self.pwd = config.passwd
+            self.user = os.getenv("RDS_1_USER")
+            self.pwd = os.getenv("RDS_1_PASSWORD")
 
         except Exception as e:
             print("Error: {}".format(str(e)))
@@ -20,24 +20,17 @@ class MySQLDatabase:
     def write(self, df):
         try:
             print("Connecting to Database")
-            engine = create_engine("mysql+mysqlconnector://{user}:{pw}@{host}/{db}"
-                                   .format(user=self.user,
-                                           pw=self.pwd,
-                                           host=self.host,
-                                           db=self.dbname
-                                           ))
-            print('pimmel3')
-            print(df)
-            # df.reset_index(drop=True, inplace=True)
-            df.to_sql('bookie', con=engine, if_exists='replace')
-            # engine.execute("SELECT * FROM bookie").fetchall()
+            url = f'mysql+pymysql://{self.user}:{self.pwd}@{self.host}:{self.port}/{self.dbname}'
+            engine = create_engine(url)
+            for i, row in df.iterrows():
+                sql = "SELECT * FROM `bookie` WHERE `id` = '{}'".format(row.id)
+                found = pd.read_sql_query(sql, engine)
+                if len(found) == 0:
+                    df.iloc[i:i + 1].to_sql(name="bookie", if_exists='append', con=engine)
             print("Successfully wrote to Database")
         except Exception as e:
             print("Error: {}".format(str(e)))
             sys.exit(1)
-
-    # def sql_drop_duplicates(self):
-    #     pass
 
     def get(self, table):
         """
@@ -47,16 +40,10 @@ class MySQLDatabase:
         """
         try:
             print("Connecting to Database and geting results")
-            query = f'SELECT * FROM bookie.{table}'
+            query = f'SELECT * FROM bookie'
             url = f'mysql+pymysql://{self.user}:{self.pwd}@{self.host}:{self.port}/{self.dbname}'
             engine = create_engine(url)
             df = pd.read_sql_query(query, engine)
-            #
-            # if 'level_0' in list(df.columns):
-            #     df.drop('level_0', axis=1, inplace=True)
-            #
-            # print('pimmel4')
-            # print(df)
             return df
         except Exception as e:
             print("Error: {}".format(str(e)))

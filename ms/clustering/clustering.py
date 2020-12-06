@@ -1,4 +1,4 @@
-from sklearn.manifold import LocallyLinearEmbedding
+# from sklearn.manifold import LocallyLinearEmbedding
 import scipy
 import numpy as np
 

@@ -112,8 +112,6 @@ class XGBAnalysis:
 
         self.feature_importance(XGB_model)
         xgb_df_next_games = self.xgb_predict(XGB_model)
-        # xgb_df_next_games.drop('level_0', axis=1, inplace=True)
-        print('pimmel1')
         print(xgb_df_next_games)
         df_all = pd.read_pickle(os.path.join(path_to_pickle, "df_all.pkl"))
 
@@ -126,19 +124,17 @@ class XGBAnalysis:
             xgb_df_next_games.at[index, 'odds_ft_draw'] = odds_draw
             xgb_df_next_games.at[index, 'odds_ft_away_team_win'] = odds_away
 
-        print('pimmel2')
         print(xgb_df_next_games)
         os.environ['TZ'] = 'Europe/Amsterdam'
         time.tzset()
         xgb_df_next_games["date_time"] = time.strftime('%X %x %Z')
+        xgb_df_next_games['id'] = xgb_df_next_games.index
 
         self.upper_limits()
-        print('pimmel6')
         print(xgb_df_next_games)
         self.under_limits()
 
         self.save_to_db(xgb_df_next_games)
-        print('pimmel7')
         print(xgb_df_next_games)
         return xgb_df_next_games
 

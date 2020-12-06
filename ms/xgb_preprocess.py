@@ -16,8 +16,8 @@ path_to_m_stats = os.path.join(path_to_g_stats, "match_stats")
 class PreProcess:
     def __init__(self):
         # TODO: Automize this index int
-        self.int_for_test = 1260
-        self.int_for_prediction = self.int_for_test - 36
+        self.int_for_test = 1313
+        self.int_for_prediction = self.int_for_test - 9
         self.predictable_columns = [
             'Pre-Match PPG (Home)', 'Pre-Match PPG (Away)', 'attendance', 'home_ppg', 'away_ppg',
             'average_goals_per_match_pre_match', 'btts_percentage_pre_match',

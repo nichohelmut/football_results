@@ -16,3 +16,4 @@ auto_download/__pycache__/*
 /*.pyc
 /ms/auto_download/__pycache__/
 /ms/tests/__pycache__/
+/ms/venv/

@@ -1,14 +1,13 @@
 # import requests
 from selenium import webdriver
 from time import sleep
-from .secrets import username, password
 from selenium.webdriver.chrome.options import Options
 import os
 
 
 class FootyStats:
     def __init__(self,
-                 path='/Users/nicholas/Documents/private code/DS/bookie/udacity_bookie/udacity_ML/ms/auto_download/auto_download_files//'):
+                 path='/Users/nicholasutikal/Documents/private code/DS/bookie/udacity_bookie/udacity_ML/football_results/ms/auto_download/auto_download_files//'):
         self.auto_path = path
         options = Options()
         options.add_argument('start-maximized')
@@ -20,6 +19,8 @@ class FootyStats:
         options.add_experimental_option("prefs", prefs)
         self.driver = webdriver.Chrome(chrome_options=options,
                                        executable_path="/usr/local/bin/chromedriver")
+        self.username = os.getenv("FOOTY_USERNAME")
+        self.password = os.getenv("FOOTY_PASSWORD")
 
     def login(self):
         self.driver.get('https://footystats.org/')
@@ -31,12 +32,12 @@ class FootyStats:
         login_btn.click()
 
         email_in = self.driver.find_element_by_xpath('//*[@id="username"]')
-        email_in.send_keys(username)
+        email_in.send_keys(self.username)
 
         sleep(2)
 
         pw_in = self.driver.find_element_by_xpath('//*[@id="password"]')
-        pw_in.send_keys(password)
+        pw_in.send_keys(self.password)
 
         login_btn = self.driver.find_element_by_xpath('//*[@id="register_submit"]')
         login_btn.click()
@@ -54,7 +55,7 @@ class FootyStats:
 
     def csv_match_actual(self):
         csv_de_match = self.driver.find_element_by_xpath(
-            '//*[@id="csv_content"]/div[2]/div[2]/div[24]/div/table/tbody/tr[1]/td[3]/a')
+            '//*[@id="csv_content"]/div[2]/div[2]/div[29]/div/table/tbody/tr[1]/td[3]/a')
         self.driver.execute_script("arguments[0].click();", csv_de_match)
 
     def csv_downloads(self):
@@ -67,31 +68,31 @@ class FootyStats:
         sleep(2)
         # de teams
         csv_de = self.driver.find_element_by_xpath(
-            '//*[@id="csv_content"]/div[2]/div[2]/div[24]/div/table/tbody/tr[1]/td[4]/a')
+            '//*[@id="csv_content"]/div[2]/div[2]/div[29]/div/table/tbody/tr[1]/td[4]/a')
         self.driver.execute_script("arguments[0].click();", csv_de)
 
         sleep(2)
         # england teams
         csv_uk = self.driver.find_element_by_xpath(
-            '//*[@id="csv_content"]/div[2]/div[2]/div[19]/div/table/tbody/tr[2]/td[4]/a')
+            '//*[@id="csv_content"]/div[2]/div[2]/div[24]/div/table/tbody/tr[2]/td[4]/a')
         self.driver.execute_script("arguments[0].click();", csv_uk)
 
         sleep(2)
         # france teams
         csv_fr = self.driver.find_element_by_xpath(
-            '//*[@id="csv_content"]/div[2]/div[2]/div[23]/div/table/tbody/tr[1]/td[4]/a')
+            '//*[@id="csv_content"]/div[2]/div[2]/div[28]/div/table/tbody/tr[1]/td[4]/a')
         self.driver.execute_script("arguments[0].click();", csv_fr)
 
         sleep(2)
         # italy teams
         csv_it = self.driver.find_element_by_xpath(
-            '//*[@id="csv_content"]/div[2]/div[2]/div[31]/div/table/tbody/tr[1]/td[4]/a')
+            '//*[@id="csv_content"]/div[2]/div[2]/div[42]/div/table/tbody/tr[1]/td[4]/a')
         self.driver.execute_script("arguments[0].click();", csv_it)
 
         sleep(4)
         # spain teams
         csv_it = self.driver.find_element_by_xpath(
-            '//*[@id="csv_content"]/div[2]/div[2]/div[53]/div/table/tbody/tr[1]/td[4]/a')
+            '//*[@id="csv_content"]/div[2]/div[2]/div[74]/div/table/tbody/tr[1]/td[4]/a')
         self.driver.execute_script("arguments[0].click();", csv_it)
 
         sleep(2)

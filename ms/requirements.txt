@@ -1,8 +1,9 @@
 pandas
-scikit-learn
-xgboost
+xgboost==1.2.1
 sqlalchemy
 selenium
 mysql-connector
 pymysql
 pytest
+sklearn
+scikit-learn==0.22.1

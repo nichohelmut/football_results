@@ -85,7 +85,8 @@ class AA:
         return df_all_climbers
 
     def top_leagues_with_climbers(self):
-        df_all = pd.concat([self.european_leagues(), self.climbers()], sort=False)
+        # to make sure both input dfs have the same columns
+        df_all = pd.concat([self.european_leagues()[self.climbers().columns], self.climbers()], sort=False)
         df_all.reset_index(inplace=True)
         df_all.drop("index", axis=1, inplace=True)
         df_total = df_all.copy()
@@ -108,7 +109,7 @@ class AA:
 
     def aa_analysis(self):
         # TODO: FIX 5 ARCHETYPES LIMIT
-        archetypal = cl.ArchetypalAnalysis(n_archetypes=5, iterations=3, tmax=300)
+        archetypal = cl.ArchetypalAnalysis(n_archetypes=5, iterations=15, tmax=300)
         model = archetypal.fit(self.matrix())
 
         return model
