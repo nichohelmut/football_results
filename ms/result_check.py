@@ -5,24 +5,23 @@ import os
 import sys
 from sqlalchemy import create_engine
 import time
+from datetime import date
 
 PATH = os.path.dirname(os.path.abspath(__file__))
 path_to_pickle = os.path.join(PATH, "germany_stats/match_stats")
 path_to_actual = os.path.join(path_to_pickle, "match_stats_20_21")
 
-
-# if date.today().weekday() == 0:
-#    # change to os
-#     footy = FootyStats(
-#         path='/Users/nicholas/Documents/private code/DS/bookie/udacity_bookie/udacity_ML/ms/germany_stats/match_stats/match_stats_20_21//')
-#     footy.login()
-#     footy.clean_dir()
-#     footy.csv_match_actual()
+if date.today().weekday() == 0:
+    # change to os
+    footy = FootyStats(
+        path='/Users/nicholasutikal/Documents/private code/DS/bookie/udacity_bookie/udacity_ML/football_results/ms/germany_stats/match_stats/match_stats_20_21//')
+    footy.login()
+    footy.clean_dir()
+    footy.csv_match_actual()
 
 
 class ResultCheck:
     def __init__(self):
-        # //TODO FIX AUTODOWNLOAD OF GERMANY MATCH DATA
         self.results = pd.read_csv(os.path.join(path_to_actual, "germany-bundesliga-matches-2020-to-2021-stats.csv"))
         try:
             self.dbname = os.getenv("RDS_1_DB_NAME")

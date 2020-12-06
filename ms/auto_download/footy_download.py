@@ -55,7 +55,7 @@ class FootyStats:
 
     def csv_match_actual(self):
         csv_de_match = self.driver.find_element_by_xpath(
-            '//*[@id="csv_content"]/div[2]/div[2]/div[29]/div/table/tbody/tr[1]/td[3]/a')
+            '//*[@id="csv_content"]/div[2]/div[2]/div[30]/div/table/tbody/tr[1]/td[3]/a')
         self.driver.execute_script("arguments[0].click();", csv_de_match)
 
     def csv_downloads(self):
