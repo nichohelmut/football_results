@@ -5,10 +5,10 @@ import os
 warnings.filterwarnings('ignore')
 
 PATH = os.path.dirname(os.path.abspath(__file__))
-path_to_a_down = os.path.join(PATH, "auto_download")
+path_to_a_down = os.path.join(PATH, "../auto_download")
 path_to_a_down_files = os.path.join(path_to_a_down, "auto_download_files")
-path_to_pickle = os.path.join(PATH, "pickle_files")
-path_to_g_stats = os.path.join(PATH, "germany_stats")
+path_to_pickle = os.path.join(PATH, "../../pickle_files")
+path_to_g_stats = os.path.join(PATH, "../../germany_stats")
 path_to_t_stats = os.path.join(path_to_g_stats, "team_stats")
 path_to_m_stats = os.path.join(path_to_g_stats, "match_stats")
 
@@ -197,6 +197,7 @@ class PreProcess:
                                                           2)
 
         df_all = df_last_AVGFTAG_results.copy()
+        df_all.to_pickle(os.path.join(path_to_pickle, "df_rnn_base.pkl"))
 
         df_matches_with_aa_numeric = df_all._get_numeric_data()
         df_matches_with_aa_numeric.drop(
