@@ -8,16 +8,19 @@ import time
 from datetime import date
 
 PATH = os.path.dirname(os.path.abspath(__file__))
-path_to_pickle = os.path.join(PATH, "germany_stats/match_stats")
-path_to_actual = os.path.join(path_to_pickle, "match_stats_20_21")
+BASE_PATH = os.path.dirname(PATH)
 
-if date.today().weekday() == 0:
-    # change to os
-    footy = FootyStats(
-        path='/Users/nicholasutikal/Documents/private code/DS/bookie/udacity_bookie/udacity_ML/football_results/ms/germany_stats/match_stats/match_stats_20_21//')
-    footy.login()
-    footy.clean_dir()
-    footy.csv_match_actual()
+path_to_pickle = os.path.join(BASE_PATH, "pickle_files")
+path_to_match = os.path.join(BASE_PATH, "germany_stats/match_stats")
+path_to_actual = os.path.join(path_to_match, "match_stats_20_21")
+
+# if date.today().weekday() == 0:
+#     # change to os
+#     footy = FootyStats(
+#         path='/ms/germany_stats/match_stats/match_stats_20_21//')
+#     footy.login()
+#     footy.clean_dir()
+#     footy.csv_match_actual()
 
 
 class ResultCheck:
@@ -85,6 +88,3 @@ class ResultCheck:
             conn.execute(sql)
 
         print("Successfully updated Bookie table with real results")
-
-# bot = ResultCheck()
-# bot.update_mysql()

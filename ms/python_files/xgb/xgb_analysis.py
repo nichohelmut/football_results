@@ -11,7 +11,7 @@ import time
 warnings.filterwarnings('ignore')
 
 PATH = os.path.dirname(os.path.abspath(__file__))
-path_to_pickle = os.path.join(PATH, "pickle_files")
+path_to_pickle = os.path.join(PATH, "../../pickle_files")
 
 
 class XGBAnalysis:

@@ -7,7 +7,7 @@ import os
 
 class FootyStats:
     def __init__(self,
-                 path='/Users/nicholasutikal/Documents/private code/DS/bookie/udacity_bookie/udacity_ML/football_results/ms/auto_download/auto_download_files//'):
+                 path='/Users/nicholasutikal/Documents/private code/DS/bookie/udacity_bookie/udacity_ML/football_results/ms/python_files/auto_download/auto_download_files//'):
         self.auto_path = path
         options = Options()
         options.add_argument('start-maximized')

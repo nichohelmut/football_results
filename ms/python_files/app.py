@@ -1,6 +1,6 @@
-from python_files.aa import AA
-from xgb_preprocess import PreProcess
-from xgb_analysis import XGBAnalysis
+from aa import AA
+from xgb.xgb_preprocess import PreProcess
+from xgb.xgb_analysis import XGBAnalysis
 from auto_download.footy_download import FootyStats
 from database import MySQLDatabase
 from result_check import ResultCheck
@@ -24,15 +24,18 @@ def run_bookie():
     model.xgb_fit_and_predict()
 
 
-def check_results():
+def run_bookie_rnn():
+    pass
 
+
+def check_results():
     r_check = ResultCheck()
     r_check.update_mysql()
 
 
-# if date.today().weekday() == 3:
-run_bookie()
-# elif date.today().weekday() == 0:
-check_results()
-# else:
-#     print('DB is updated or no match day due!')
+if date.today().weekday() == 3:
+    run_bookie()
+elif date.today().weekday() == 0:
+    check_results()
+else:
+    print('DB is updated or no match day due!')

@@ -1,6 +1,6 @@
 import pytest
 from selenium import webdriver
-from ms.auto_download.secrets import username, password
+from ms.python_files.auto_download import username, password
 from time import sleep
 import allure
 import os

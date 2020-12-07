@@ -3,8 +3,9 @@ clustering/__pycache__/*
 *.db
 .idea/*
 *.xml
+*.pyc
 /.ipynb_checkpoints/
-/ms/auto_download/secrets.py
+/ms/python_files/auto_download/secrets.py
 /ms/pickle_files/
  __pycache__/
 /config.py
@@ -14,6 +15,7 @@ auto_download/__pycache__/*
 /ms/__pycache__/
 /ms/clustering/__pycache__/
 /*.pyc
-/ms/auto_download/__pycache__/
+/ms/python_files/auto_download/__pycache__/
 /ms/tests/__pycache__/
 /ms/venv/
+/ms/python_files/.ipynb_checkpoints/
