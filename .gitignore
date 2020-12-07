@@ -3,6 +3,7 @@ clustering/__pycache__/*
 *.db
 .idea/*
 *.xml
+*.pyc
 /.ipynb_checkpoints/
 /ms/python_files/auto_download/secrets.py
 /ms/pickle_files/
