@@ -7,7 +7,8 @@ warnings.filterwarnings('ignore')
 
 PATH = os.path.dirname(os.path.abspath(__file__))
 path_ms = os.path.dirname(PATH)
-path_to_a_down = os.path.join(path_ms, "auto_download")
+path_python_files = os.path.join(path_ms, "python_files")
+path_to_a_down = os.path.join(path_python_files, "auto_download")
 path_to_a_down_files = os.path.join(path_to_a_down, "auto_download_files")
 path_to_pickle = os.path.join(path_ms, "pickle_files")
 

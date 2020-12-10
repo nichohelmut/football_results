@@ -9,16 +9,16 @@ from datetime import date
 
 # BEFORE NEW PREDICTION UPDATE INT IN xgb_preprocess!!!elf!1!!
 def run_bookie():
-    if date.today().weekday() == 3:
-        stats = FootyStats()
-        stats.login()
-        stats.csv_downloads()
+    # if date.today().weekday() == 3:
+    #     stats = FootyStats()
+    #     stats.login()
+    #     stats.csv_downloads()
 
-    archetype = AA()
-    archetype.run()
-
-    prepro = PreProcess()
-    prepro.data_for_predict()
+    # archetype = AA()
+    # archetype.run()
+    #
+    # prepro = PreProcess()
+    # prepro.data_for_predict()
 
     model = XGBAnalysis()
     model.xgb_fit_and_predict()
