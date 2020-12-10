@@ -129,6 +129,7 @@ class XGBAnalysis:
         time.tzset()
         xgb_df_next_games["date_time"] = time.strftime('%X %x %Z')
         xgb_df_next_games['id'] = xgb_df_next_games.index
+        xgb_df_next_games['real_result'] = xgb_df_next_games['real_result'].astype('Int64')
 
         self.upper_limits()
         print(xgb_df_next_games)

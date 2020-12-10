@@ -26,7 +26,9 @@ class MySQLDatabase:
                 sql = "SELECT * FROM `bookie` WHERE `id` = '{}'".format(row.id)
                 found = pd.read_sql_query(sql, engine)
                 if len(found) == 0:
-                    df.iloc[i:i + 1].to_sql(name="bookie", if_exists='append', con=engine)
+                    row.to_frame().T.to_sql(name="bookie", if_exists='append', con=engine)
+            # df['id2'] = df['id']
+            # df.to_sql(name="bookie", if_exists='replace', con=engine)
             print("Successfully wrote to Database")
         except Exception as e:
             print("Error: {}".format(str(e)))
