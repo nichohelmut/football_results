@@ -14,6 +14,7 @@ path_to_pickle = os.path.join(BASE_PATH, "pickle_files")
 path_to_match = os.path.join(BASE_PATH, "germany_stats/match_stats")
 path_to_actual = os.path.join(path_to_match, "match_stats_20_21")
 
+
 # if date.today().weekday() == 0:
 #     # change to os
 #     footy = FootyStats(
@@ -65,11 +66,15 @@ class ResultCheck:
         engine = create_engine(url)
 
         df = self.read_from_db()
-        df = df.tail(8)
+        df = df.tail(9)
         df_actual_rows = self.actual_results().loc[list(df['index'])]
-        l_result_last_game = list(df_actual_rows['result'])
+        l_result_last_game = list(df_actual_rows['result'].astype('Int64'))
         df['real_result'] = l_result_last_game
-        df.drop('level_0', axis=1, inplace=True)
+
+        try:
+            df.drop('level_0', axis=1, inplace=True)
+        except:
+            pass
 
         os.environ['TZ'] = 'Europe/Amsterdam'
         time.tzset()

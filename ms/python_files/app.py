@@ -33,9 +33,9 @@ def check_results():
     r_check.update_mysql()
 
 
-if date.today().weekday() == 3:
-    run_bookie()
-elif date.today().weekday() == 0:
-    check_results()
-else:
-    print('DB is updated or no match day due!')
+# if date.today().weekday() == 3:
+run_bookie()
+# elif date.today().weekday() == 0:
+# check_results()
+# else:
+#     print('DB is updated or no match day due!')
