@@ -1,4 +1,4 @@
-from aa import AA
+# from aa import AA
 from xgb.xgb_preprocess import PreProcess
 from xgb.xgb_analysis import XGBAnalysis
 from auto_download.footy_download import FootyStats
